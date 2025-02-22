@@ -1,3 +1,12 @@
 spring:
   application:
     name: Microservices Example
+
+  redis:
+    host: localhost
+    port: 6379
+
+
+jwt:
+  secret: MINHA_SECRET_KEY_TESTE_MICROSERVICO
+  expiration_time: 259200000
