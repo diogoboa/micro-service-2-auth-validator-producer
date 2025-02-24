@@ -10,3 +10,9 @@ spring:
 jwt:
   secret: MINHA_SECRET_KEY_TESTE_MICROSERVICO
   expiration_time: 259200000
+
+
+springdoc:
+  swagger-ui:
+    path=/swagger-ui:
+      html:

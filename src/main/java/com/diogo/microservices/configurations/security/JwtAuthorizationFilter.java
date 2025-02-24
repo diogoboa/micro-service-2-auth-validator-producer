@@ -26,6 +26,8 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
     @Autowired
     private ChecarTokenDeUsuario checarTokenDeUsuario;
 
+
+
     public JwtAuthorizationFilter(AuthenticationManager authenticationManager ) {
         super(authenticationManager);
     }
@@ -33,15 +35,14 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
 
-
         if (request.getRequestURI().equals("/api/login") || !request.getRequestURI().matches("^/api.*")) {
             chain.doFilter(request, response);
-            return;
+        return;
         }
 
         if (request.getRequestURI().startsWith("/api/public/")) {
-            chain.doFilter(request, response);
-            return;
+        chain.doFilter(request, response);
+        return;
         }
 
         try {
@@ -52,17 +53,17 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
         {
 
 
-            LocalDateTime dataHora = LocalDateTime.now();
-            String erro = "Token inválido";
-            String messageError = "Ocorreu um erro ao processar o token";
-            String path = request.getRequestURI();
-            StandardError error = new StandardError(dataHora, HttpStatus.FORBIDDEN.value(), erro, messageError, path);
+        LocalDateTime dataHora = LocalDateTime.now();
+        String erro = "Token inválido";
+        String messageError = "Ocorreu um erro ao processar o token";
+        String path = request.getRequestURI();
+        StandardError error = new StandardError(dataHora, HttpStatus.FORBIDDEN.value(), erro, messageError, path);
 
-            String errorJson = new ObjectMapper().writeValueAsString(error);
+        String errorJson = new ObjectMapper().writeValueAsString(error);
 
-            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-            response.setContentType("application/json");
-            response.getWriter().write(errorJson);
+        response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+        response.setContentType("application/json");
+        response.getWriter().write(errorJson);
 
         }
 
