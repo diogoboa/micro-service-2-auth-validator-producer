@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,21 +18,21 @@ import org.springframework.web.bind.annotation.RestController;
 import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 
 @RestController
-@RequestMapping("api/imagem")
+@RequestMapping("api/imagens")
 @AllArgsConstructor
 @Tag(name = "Imagem", description = " - Recursos de imagens")
+@SecurityRequirement(name = AUTHORIZATION)
 public class ImagemController {
 
     private final CriarNovaImagem criarNovaImagem;
 
     @PostMapping
-    @SecurityRequirement(name = AUTHORIZATION)
     @Operation(summary = "Publicar imagem")
     public ResponseEntity<?> inserirImagem(@RequestBody CriarNovaImagemCommand commmand){
 
         Imagem imagem = criarNovaImagem.executar(commmand);
 
-        return ResponseEntity.accepted().body("Imagem publicada com sucesso");
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(imagem);
     }
 
 

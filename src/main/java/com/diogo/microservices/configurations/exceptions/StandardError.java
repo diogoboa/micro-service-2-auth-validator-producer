@@ -1,6 +1,5 @@
 package com.diogo.microservices.configurations.exceptions;
 
-import java.time.Instant;
 import java.time.LocalDateTime;
 
 public record StandardError(

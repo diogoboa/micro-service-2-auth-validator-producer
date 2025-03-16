@@ -27,6 +27,8 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
     private ChecarTokenDeUsuario checarTokenDeUsuario;
 
 
+    @Autowired
+    private ObjectMapper objectMapper;
 
     public JwtAuthorizationFilter(AuthenticationManager authenticationManager ) {
         super(authenticationManager);
@@ -57,9 +59,9 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
         String erro = "Token inválido";
         String messageError = "Ocorreu um erro ao processar o token";
         String path = request.getRequestURI();
-        StandardError error = new StandardError(dataHora, HttpStatus.FORBIDDEN.value(), erro, messageError, path);
+        //StandardError error = new StandardError(dataHora, HttpStatus.FORBIDDEN.value(), erro, messageError, path);
 
-        String errorJson = new ObjectMapper().writeValueAsString(error);
+        String errorJson = objectMapper.writeValueAsString(erro);
 
         response.setStatus(HttpServletResponse.SC_FORBIDDEN);
         response.setContentType("application/json");

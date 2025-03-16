@@ -16,7 +16,7 @@ public class InicializarUsuariosNaMemoria {
     void iniciar()
     {
         carregarUsuariosNaMemoria.executar();
-        System.out.println("Usuarios iniciados com sucesso!");
+        System.out.println("Usuarios iniciados na memoria com sucesso!");
     }
 
 

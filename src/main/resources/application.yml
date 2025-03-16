@@ -2,10 +2,21 @@ spring:
   application:
     name: Microservices Example
 
+
+nomeDoHost : ${SERVER_NAME:localhost}
+portaDoHost : ${SERVER_PORT:29001}
+
+
+
+server:
+  port: ${SERVER_PORT:29001}
+  address: 0.0.0.0
+  tomcat:
+    max-threads: 200
+
   redis:
     host: localhost
     port: 6379
-
 
 jwt:
   secret: MINHA_SECRET_KEY_TESTE_MICROSERVICO
@@ -16,3 +27,5 @@ springdoc:
   swagger-ui:
     path=/swagger-ui:
       html:
+
+

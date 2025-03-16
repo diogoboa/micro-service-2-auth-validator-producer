@@ -17,7 +17,7 @@ public class RabbitMQEnvioDeImagensConfig {
 
     @Bean
     public Queue imagemQueue() {
-        return new Queue(QUEUE_NAME, false);
+        return new Queue(QUEUE_NAME, true);
     }
 
     @Bean

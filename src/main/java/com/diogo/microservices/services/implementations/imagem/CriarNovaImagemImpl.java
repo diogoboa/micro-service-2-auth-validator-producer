@@ -41,14 +41,16 @@ public class CriarNovaImagemImpl implements CriarNovaImagem {
             throw new RuntimeException("Entrada vazia");
         if(command.base64Img() == null || command.base64Img().length() < 3)
             throw new RuntimeException("Base64 invalido");
-        if(command.chaveUnica() == null || command.chaveUnica().isEmpty())
+        if(command.chave() == null || command.chave().isEmpty())
             throw new RuntimeException("Digite uma chave unica");
 
     }
 
 
     protected void verificarFormato(CriarNovaImagemCommand command) {
-        String base64 = command.base64Img();
+
+
+        String base64 = command.base64Img().contains(",") ? command.base64Img().split(",")[1] : command.base64Img();
 
         if (base64.startsWith("iVB")) { // PNG
             return;
@@ -68,7 +70,7 @@ public class CriarNovaImagemImpl implements CriarNovaImagem {
         try {
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
             String username = authentication.getName();
-            var dto = new InserirImagemNaFilaTabbitMQDTO(username, command.chaveUnica(), command.base64Img());
+            var dto = new InserirImagemNaFilaTabbitMQDTO(username, command.chave(), command.base64Img());
             return new ObjectMapper().writeValueAsString(dto);
         }catch (Exception ex)
         {
@@ -79,7 +81,7 @@ public class CriarNovaImagemImpl implements CriarNovaImagem {
 
 
     protected Imagem mapearParaImagem(CriarNovaImagemCommand command) {
-        return new Imagem(null, command.chaveUnica(), command.base64Img());
+        return new Imagem(null, command.chave(), command.base64Img());
     }
 
 
